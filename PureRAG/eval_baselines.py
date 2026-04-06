@@ -15,6 +15,10 @@ DATA_FILE = "/data2/Medical/ColonMoE/TextMining/ViHERMES/dataset/dataset.jsonl"
 OLLAMA_URL = "http://localhost:11434/v1"
 EMBED_MODEL = "nomic-embed-text"
 LLM_MODEL = "qwen2.5:latest"
+RAG_PROMPT_TEMPLATE = """Dựa vào các thông tin y khoa sau đây:
+{context}
+
+Hãy trả lời câu hỏi: {question}"""
 
 # Global Reranker (Shared across all methods)
 reranker = CrossEncoder('BAAI/bge-reranker-v2-m3', device='cuda')
@@ -130,7 +134,7 @@ async def run_unified_eval(method, limit):
                 context = "\n".join(top_5)
                 
                 # C. Generation
-                prompt = f"Dựa vào các thông tin y khoa sau đây:\n{context}\n\nHãy trả lời câu hỏi: {q}"
+                prompt = RAG_PROMPT_TEMPLATE.format(context=context, question=q)
                 pred = await generate_response(prompt, client)
                 
                 # D. Metrics
