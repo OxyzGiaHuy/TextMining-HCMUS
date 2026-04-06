@@ -42,4 +42,4 @@ embed_model = SentenceTransformer('BAAI/bge-m3', device='cuda')
 ```
 
 ---
-*Created for HCMUS TextMining & ColonMoE Research.*
+*Created for HCMUS TextMining Research.*
