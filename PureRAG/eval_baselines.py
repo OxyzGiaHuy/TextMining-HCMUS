@@ -21,7 +21,7 @@ RAG_PROMPT_TEMPLATE = """Dựa vào các thông tin y khoa sau đây:
 Hãy trả lời câu hỏi: {question}"""
 
 # Global Reranker (Shared across all methods)
-reranker = CrossEncoder('BAAI/bge-reranker-v2-m3', device='cuda')
+reranker = CrossEncoder('BAAI/bge-reranker-v2-m3', device='cuda', trust_remote_code=True)
 
 # --- UTILS ---
 async def get_embeddings(texts, client):
